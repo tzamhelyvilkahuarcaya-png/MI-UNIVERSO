@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercurio - Explora el Universo</title>
+  <link rel="stylesheet" href="planeta.css">
+  <style>
+    .visual {
+      position: relative;
+      width: 570px;
+      height: 570px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Contenedor principal de Mercurio con resplandor trasero mucho más fuerte */
+    .mercurio-sistema {
+      position: relative;
+      width: 440px;
+      height: 440px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Iluminación trasera más intensa y luminosa */
+    .mercurio-sistema::before {
+      content: '';
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(220, 220, 220, 0.7) 0%, rgba(150, 150, 150, 0.35) 45%, transparent 75%);
+      border-radius: 50%;
+      z-index: 1;
+      filter: blur(15px);
+      animation: pulso-brillo 4s ease-in-out infinite;
+    }
+
+    @keyframes pulso-brillo {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    .esfera-mercurio-container {
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      background: radial-gradient(circle at 40% 40%, #c4c4c4 0%, #858585 60%, #4a4a4a 100%);
+      box-shadow: 
+        inset -55px -55px 85px rgba(0, 0, 0, 0.7),
+        inset 25px 25px 40px rgba(255, 255, 255, 0.5),
+        0 0 90px rgba(200, 200, 200, 0.8); /* Sombra exterior mucho más fuerte */
+    }
+    
+    .brillo-esfera {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 50%, transparent 75%);
+      z-index: 6;
+    }
+  </style>
+</head>
+<body>
+  <main class="universo">
+    <header class="header-centrado">
+      <h1>Mercurio</h1>
+      <p class="subtitulo">El planeta más cercano al Sol.</p>
+    </header>
+    <div class="contenedor-cuerpo">
+      <div class="visual">
+        <div class="mercurio-sistema">
+          <div class="esfera-mercurio-container">
+            <div class="brillo-esfera"></div>
+          </div>
+        </div>
+      </div>
+      <div class="contenido-derecha">
+        <h2>¿Qué debes saber sobre Mercurio?</h2>
+        <p class="texto-descripcion">
+          Mercurio es el planeta más pequeño del sistema solar y el más cercano al Sol. Debido a su proximidad y falta de atmósfera significativa, experimenta variaciones de temperatura extremas.
+        </p>
+        <div class="datos-clave">
+          <div class="dato"><span>Temperatura</span><strong>430 °C / -180 °C</strong></div>
+          <div class="dato"><span>Un año aquí</span><strong>88 días terrestres</strong></div>
+          <div class="dato"><span>Un día aquí</span><strong>58.6 días</strong></div>
+          <div class="dato"><span>Satélites</span><strong>Sin lunas</strong></div>
+          <div class="dato"><span>Gravedad</span><strong>3.7 m/s²</strong></div>
+          <div class="dato"><span>Tipo de planeta</span><strong>Planeta rocoso</strong></div>
+        </div>
+      </div>
+    </div>
+    <a class="boton-volver" href="planetas.html">← Volver a planetas</a>
+  </main>
+</body>
+</html>

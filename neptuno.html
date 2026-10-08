@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neptuno - Explora el Universo</title>
+  <link rel="stylesheet" href="planeta.css">
+  <style>
+    .visual {
+      position: relative;
+      width: 780px;
+      height: 780px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Estilo para cada miniatura de luna con interactividad de zoom y luz trasera sutil */
+    .luna-item {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      z-index: 10;
+      transform: translate(-50%, -50%);
+      pointer-events: auto;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0.2s;
+    }
+
+    /* Luz trasera suave para cada luna */
+    .luna-item::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22px;
+      height: 22px;
+      background: radial-gradient(circle, rgba(92, 121, 237, 0.25) 0%, rgba(41, 66, 176, 0.08) 60%, transparent 80%);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+      filter: blur(3px);
+    }
+
+    /* Al pasar el cursor sobre cualquier luna, se agranda y pasa al frente */
+    .luna-item:hover {
+      transform: translate(-50%, -50%) scale(4.5);
+      z-index: 9999;
+    }
+
+    /* Gráfico circular con textura de cráteres */
+    .luna-grafico {
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #b0b0b0 60%, #505050 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.4), inset -2px -2px 3px rgba(0,0,0,0.7);
+      position: relative;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+
+    .luna-grafico::before,
+    .luna-grafico::after {
+      content: '';
+      position: absolute;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 50%;
+    }
+
+    .luna-grafico::before {
+      width: 3px;
+      height: 3px;
+      top: 2px;
+      left: 2px;
+    }
+
+    .luna-grafico::after {
+      width: 2.5px;
+      height: 2.5px;
+      bottom: 2px;
+      right: 2px;
+    }
+
+    .luna-item span {
+      font-size: 5.5px;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 2px;
+      white-space: nowrap;
+      font-family: sans-serif;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      transition: font-size 0.2s, color 0.2s;
+      z-index: 2;
+    }
+
+    /* Al hacer zoom en la luna, el texto se adapta para leerse nítido */
+    .luna-item:hover span {
+      font-size: 4.5px;
+      color: #ffffff;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 1px 3px;
+      border-radius: 3px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* Contenedor principal de Neptuno */
+    .neptuno-sistema {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 440px;
+      height: 440px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+    }
+
+    /* Luz de iluminación trasera para el planeta */
+    .neptuno-sistema::before {
+      content: '';
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(
+        circle,
+        rgba(92, 121, 237, 0.65) 0%,
+        rgba(41, 66, 176, 0.3) 50%,
+        transparent 75%
+      );
+      border-radius: 50%;
+      z-index: 1;
+      filter: blur(14px);
+      animation: pulso-brillo-neptuno 4s ease-in-out infinite;
+    }
+
+    @keyframes pulso-brillo-neptuno {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.04);
+        opacity: 1;
+      }
+    }
+
+    .esfera-neptuno-container {
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      z-index: 5;
+      background: radial-gradient(circle at 40% 40%, #5c79ed 0%, #2942b0 60%, #102166 100%);
+      box-shadow: 
+        inset -55px -55px 85px rgba(0, 0, 0, 0.6),
+        inset 22px 22px 38px rgba(255, 255, 255, 0.35),
+        0 0 60px rgba(41, 66, 176, 0.8);
+    }
+
+    .brillo-esfera {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.05) 55%, transparent 75%);
+      z-index: 6;
+    }
+
+    /* Contenedor de las lunas */
+    .campo-lunas-neptuno {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .contenido-derecha {
+      position: relative;
+      z-index: 20;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="universo">
+    <header class="header-centrado">
+      <h1>Neptuno</h1>
+      <p class="subtitulo">El planeta más lejano del sistema solar.</p>
+    </header>
+
+    <div class="contenedor-cuerpo">
+      
+      <!-- Contenedor visual -->
+      <div class="visual">
+        <!-- Sistema de Neptuno con su luz trasera -->
+        <div class="neptuno-sistema">
+          <div class="esfera-neptuno-container">
+            <div class="brillo-esfera"></div>
+          </div>
+        </div>
+
+        <!-- Campo dinámico de lunas -->
+        <div class="campo-lunas-neptuno" id="campo-lunas-neptuno"></div>
+      </div>
+
+      <!-- Descripción y datos de Neptuno -->
+      <div class="contenido-derecha">
+        <h2>¿Qué debes saber sobre Neptuno?</h2>
+        <p class="texto-descripcion">
+          Neptuno es el octavo y más distante planeta conocido del sistema solar. Es un gigante helado de un vibrante color azul intenso provocado por el metano en su atmósfera, orbitado por sus 16 lunas conocidas.
+        </p>
+
+        <div class="datos-clave">
+          <div class="dato"><span>Temperatura</span><strong>-200 °C (Promedio)</strong></div>
+          <div class="dato"><span>Un año aquí</span><strong>165 años terrestres</strong></div>
+          <div class="dato"><span>Un día aquí</span><strong>16.1 horas</strong></div>
+          <div class="dato"><span>Satélites</span><strong>16 lunas oficiales</strong></div>
+          <div class="dato"><span>Gravedad</span><strong>11.15 m/s²</strong></div>
+          <div class="dato"><span>Tipo de planeta</span><strong>Gigante helado</strong></div>
+        </div>
+      </div>
+
+    </div>
+
+    <a class="boton-volver" href="planetas.html">← Volver a planetas</a>
+  </main>
+
+  <script>
+    const lunasNeptuno = [
+      "Tritón", "Proteo", "Nereida", "Larisa", "Despina", 
+      "Galatea", "Thalassa", "Naiad", "Halimede", "Sao", 
+      "Laomedeia", "Psamathe", "Neso", "Hippocamp", "S/2004 N 1", "S/2021 N 1"
+    ];
+
+    const contenedor = document.getElementById('campo-lunas-neptuno');
+    const totalLunas = lunasNeptuno.length;
+    
+    const numAnillos = 3;
+    const lunasPorAnillo = Math.ceil(totalLunas / numAnillos);
+    const radiosAnillos = [260, 305, 350];
+
+    lunasNeptuno.forEach((nombre, i) => {
+      const lunaItem = document.createElement('div');
+      lunaItem.className = 'luna-item';
+
+      let anilloActual = Math.floor(i / lunasPorAnillo);
+      let indiceEnAnillo = i % lunasPorAnillo;
+      let totalEnEsteAnillo = (anilloActual === numAnillos - 1) ? (totalLunas - (anilloActual * lunasPorAnillo)) : lunasPorAnillo;
+      
+      let radio = radiosAnillos[anilloActual];
+      let angulo = (indiceEnAnillo / totalEnEsteAnillo) * (Math.PI * 2) + (anilloActual * 0.4);
+
+      let x = radio * Math.cos(angulo);
+      let y = radio * Math.sin(angulo);
+
+      lunaItem.style.left = `${x}px`;
+      lunaItem.style.top = `${y}px`;
+
+      lunaItem.innerHTML = `
+        <div class="luna-grafico"></div>
+        <span>${nombre}</span>
+      `;
+      contenedor.appendChild(lunaItem);
+    });
+  </script>
+
+</body>
+</html>

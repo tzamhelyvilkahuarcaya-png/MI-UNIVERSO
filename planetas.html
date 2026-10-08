@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explora los planetas</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Estilo para el botón de volver al inicio */
+        .btn-volver {
+            position: absolute;
+            top: 25px;
+            left: 30px;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        .btn-volver:hover {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Estructura general de la vista de planetas */
+        body.universo-planetas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 40px;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #172554 0%, #050816 55%, #02030a 100%);
+            margin: 0;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        .titulo-planetas {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 35px;
+            z-index: 10;
+        }
+
+        .titulo-planetas h1 {
+            font-size: 48px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .titulo-planetas p {
+            color: #a5b4fc;
+            font-size: 18px;
+        }
+
+        /* ------------------------------------------------ */
+        /* DISEÑO MEJORADO DE LOS PLANETAS (Tierra y Saturno) */
+        /* ------------------------------------------------ */
+
+        /* Planeta Tierra con continentes */
+        .planeta-tierra {
+            background: radial-gradient(circle at 35% 35%, #4da6ff, #00264d) !important;
+            position: relative;
+            overflow: hidden;
+        }
+        .planeta-tierra::before {
+            content: "";
+            position: absolute;
+            background: #22c55e;
+            border-radius: 50%;
+            opacity: 0.8;
+            width: 45px;
+            height: 25px;
+            top: 20px;
+            left: 25px;
+            transform: rotate(25deg);
+            box-shadow: 25px 35px 0 5px #22c55e, 10px 20px 0 2px #22c55e;
+        }
+
+        /* Planeta Saturno con su Anillo */
+        .planeta-saturno {
+            background: radial-gradient(circle at 35% 35%, #ffe680, #806000) !important;
+            position: relative;
+        }
+        .planeta-saturno::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 130px;
+            height: 35px;
+            border: 5px solid rgba(234, 179, 8, 0.75);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) rotate(-20deg);
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+        }
+    </style>
+</head>
+<body class="universo-planetas">
+
+    <!-- Botón para volver al inicio -->
+    <a href="index.html" class="btn-volver">← Volver al inicio</a>
+
+    <!-- Encabezado -->
+    <div class="titulo-planetas">
+        <h1>Explora los planetas</h1>
+        <p>Toca un planeta para entrar y conocerlo</p>
+    </div>
+
+    <!-- Catálogo de Planetas -->
+    <div class="catalogo-planetas">
+        <a href="mercurio.html" class="tarjeta-planeta">
+            <div class="planeta-miniatura planeta-mercurio"></div>
+            <h3>Mercurio</h3>
+            <p>El planeta más cercano al Sol.</p>
+            <span class="lunas-info">🌙 Sin lunas</span>
+        </a>
+
+        <a href="venus.html" class="tarjeta-planeta">
+            <div class="planeta-miniatura planeta-venus"></div>
+            <h3>Venus</h3>
+            <p>Un mundo cubierto por una densa atmósfera.</p>
+            <span class="lunas-info">🌙 Sin lunas</span>
+        </a>
+
+        <a href="tierra.html" class="tarjeta-planeta">
+            <div class="planeta-miniatura planeta-tierra"></div>
+            <h3>Tierra</h3>
+            <p>Nuestro hogar y el único mundo conocido con vida.</p>
+            <span class="lunas-info">🌙 Luna</span>
+        </a>
+
+        <a href="marte.html" class="tarjeta-planeta">
+            <div class="planeta-miniatura planeta-marte"></div>
+            <h3>Marte</h3>
+            <p>El planeta rojo, lleno de misterios.</p>
+            <span class="lunas-info">🌙 Fobos y Deimos</span>
+        </a>
+
+        <a href="jupiter.html" class="tarjeta-planeta">
+            <div class="planeta-miniatura planeta-jupiter"></div>
+            <h3>Júpiter</h3>
+            <p>El planeta más grande del sistema solar.</p>
+            <span class="lunas-info">🌙 Ío, Europa, Ganímedes y Calisto</span>
+        </a>
+
+        <a href="saturno.html" class="tarjeta-planeta">
+            <div class="planeta-miniatura planeta-saturno"></div>
+            <h3>Saturno</h3>
+            <p>Gigante gaseoso famoso por sus anillos.</p>
+            <span class="lunas-info">🌙 Titán, Encélado y más lunas</span>
+        </a>
+
+        <a href="urano.html" class="tarjeta-planeta">
+            <div class="planeta-miniatura planeta-urano"></div>
+            <h3>Urano</h3>
+            <p>Gigante helado que gira de lado.</p>
+            <span class="lunas-info">🌙 Titania, Oberón y más lunas</span>
+        </a>
+
+        <a href="neptuno.html" class="tarjeta-planeta">
+            <div class="planeta-miniatura planeta-neptuno"></div>
+            <h3>Neptuno</h3>
+            <p>El planeta más lejano del sistema solar.</p>
+            <span class="lunas-info">🌙 Tritón y otras lunas</span>
+        </a>
+    </div>
+
+</body>
+</html>

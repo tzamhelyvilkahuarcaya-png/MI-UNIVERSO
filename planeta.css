@@ -1,0 +1,262 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #02030a;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.universo {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 40px;
+  background: radial-gradient(circle at center, #1e1b4b 0%, #030712 100%);
+}
+
+/* Encabezado */
+.header-centrado {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.header-centrado h1 {
+  font-size: 68px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 30px rgba(165, 180, 252, 0.6);
+}
+
+.subtitulo {
+  color: #c7d2fe;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+/* Contenedor principal alineado */
+.contenedor-cuerpo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  max-width: 1400px;
+  width: 95%;
+  margin: 10px auto;
+}
+
+/* Planeta mucho más grande */
+.visual {
+  width: 520px;
+  height: 520px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: -30px;
+  animation: flotar 4s ease-in-out infinite;
+}
+
+.planeta-principal {
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  box-shadow: inset -45px -30px 60px rgba(0, 0, 0, 0.85), 0 0 60px rgba(99, 102, 241, 0.45);
+}
+
+/* --- ESTILOS DE CADA PLANETA --- */
+
+.planeta-mercurio { 
+  background: radial-gradient(circle at 35% 35%, #ffffff, #94a3b8 45%, #1e293b); 
+}
+
+.planeta-venus { 
+  background: radial-gradient(circle at 35% 35%, #ffffff, #eab308 45%, #713f12); 
+}
+
+.planeta-tierra { 
+  background: radial-gradient(circle at 35% 35%, #60a5fa, #1d4ed8 45%, #0f172a); 
+}
+
+.planeta-marte { 
+  background: radial-gradient(circle at 35% 35%, #fca5a5, #dc2626 45%, #450a0a); 
+}
+
+.planeta-jupitier { 
+  background: radial-gradient(circle at 35% 35%, #fef08a, #d97706 40%, #78350f); 
+}
+
+.planeta-saturno { 
+  background: radial-gradient(circle at 35% 35%, #fef3c7, #f59e0b 45%, #78350f); 
+}
+
+.planeta-urano { 
+  background: radial-gradient(circle at 35% 35%, #a5f3fc, #06b6d4 45%, #164e63); 
+}
+
+.planeta-neptuno { 
+  background: radial-gradient(circle at 35% 35%, #38bdf8, #2563eb 45%, #1e3a8a); 
+}
+
+/* Anillo especial para Saturno */
+.anillo-saturno {
+  position: absolute;
+  width: 500px;
+  height: 120px;
+  border: 18px solid rgba(245, 158, 11, 0.5);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  z-index: 3;
+  pointer-events: none;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+/* Órbita y Satélite */
+.orbita {
+  width: 520px;
+  height: 520px;
+  border: 1.5px solid rgba(165, 180, 252, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: girar 12s linear infinite;
+}
+
+.satelite {
+  width: 22px;
+  height: 22px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+}
+
+/* Bloque de texto con máxima claridad y visibilidad */
+.contenido-derecha {
+  max-width: 680px;
+  text-align: left;
+}
+
+.contenido-derecha h2 {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 14px;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.texto-descripcion {
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  font-weight: 400;
+}
+
+/* Tarjetas de datos con mejor contraste y visibilidad */
+.datos-clave {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.dato {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(165, 180, 252, 0.35);
+  padding: 16px 22px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dato span {
+  font-size: 13px;
+  color: #a5b4fc;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+}
+
+.dato strong {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+/* Botón inferior */
+.boton-volver {
+  display: inline-block;
+  padding: 12px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+  background: rgba(15, 23, 42, 0.8);
+  transition: all 0.25s ease;
+  margin-top: 10px;
+}
+
+.boton-volver:hover {
+  background: rgba(30, 41, 59, 0.95);
+  border-color: #818cf8;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Animaciones */
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes girar {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Adaptabilidad a laptops pequeñas o tabletas */
+@media (max-width: 1050px) {
+  .contenedor-cuerpo {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  .visual {
+    margin-left: 0;
+    width: 400px;
+    height: 400px;
+  }
+  .planeta-principal {
+    width: 280px;
+    height: 280px;
+  }
+  .orbita {
+    width: 400px;
+    height: 400px;
+  }
+  .contenido-derecha {
+    text-align: center;
+  }
+}

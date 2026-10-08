@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venus - Explora el Universo</title>
+  <link rel="stylesheet" href="planeta.css">
+  <style>
+    .visual {
+      position: relative;
+      width: 570px;
+      height: 570px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Contenedor principal del sistema de Venus con resplandor trasero fuerte */
+    .venus-sistema {
+      position: relative;
+      width: 440px;
+      height: 440px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Iluminación trasera intensa en tonos cálidos/dorados para Venus */
+    .venus-sistema::before {
+      content: '';
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(255, 180, 70, 0.7) 0%, rgba(200, 110, 30, 0.35) 45%, transparent 75%);
+      border-radius: 50%;
+      z-index: 1;
+      filter: blur(15px);
+      animation: pulso-brillo 4s ease-in-out infinite;
+    }
+
+    @keyframes pulso-brillo {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    /* Esfera base de Venus */
+    .planeta-venus {
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      background: radial-gradient(circle at 40% 40%, #ffcc66 0%, #e68a00 50%, #994d00 100%);
+      box-shadow: 
+        inset -55px -55px 85px rgba(0, 0, 0, 0.7),
+        inset 25px 25px 40px rgba(255, 255, 255, 0.5),
+        0 0 90px rgba(255, 165, 0, 0.8);
+    }
+    
+    /* Brillo superficial del planeta */
+    .brillo-esfera {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 50%, transparent 75%);
+      z-index: 6;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="universo">
+    <!-- Encabezado centrado -->
+    <header class="header-centrado">
+      <h1>Venus</h1>
+      <p class="subtitulo">Un mundo cubierto por una densa atmósfera</p>
+    </header>
+
+    <!-- Sección principal -->
+    <div class="contenedor-cuerpo">
+      
+      <!-- Visual de Venus sin aro, sin lunas y con iluminación fuerte -->
+      <div class="visual">
+        <div class="venus-sistema">
+          <div class="planeta-principal planeta-venus">
+            <div class="brillo-esfera"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Descripción amplia y de alta visibilidad -->
+      <div class="contenido-derecha">
+        <h2>¿Qué debes saber sobre Venus?</h2>
+        
+        <p class="texto-descripcion">
+          Venus es el segundo planeta desde el Sol y el más caliente del sistema solar. Su densa atmósfera atrapa el calor en un voraz efecto invernadero, creando temperaturas lo suficientemente altas como para derretir el plomo. Además, gira en dirección opuesta a la mayoría de los planetas.
+        </p>
+
+        <!-- Ficha de datos clave ampliada -->
+        <div class="datos-clave">
+          <div class="dato">
+            <span>Temperatura</span>
+            <strong>465 °C (Promedio)</strong>
+          </div>
+          <div class="dato">
+            <span>Un año aquí</span>
+            <strong>225 días terrestres</strong>
+          </div>
+          <div class="dato">
+            <span>Un día aquí</span>
+            <strong>243 días terrestres</strong>
+          </div>
+          <div class="dato">
+            <span>Satélites</span>
+            <strong>0 Lunas</strong>
+          </div>
+          <div class="dato">
+            <span>Gravedad</span>
+            <strong>8.87 m/s² (90% de la Tierra)</strong>
+          </div>
+          <div class="dato">
+            <span>Composición</span>
+            <strong>Rocoso / Atmósfera CO₂</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Botón inferior -->
+    <a class="boton-volver" href="planetas.html">← Volver a planetas</a>
+  </main>
+
+</body>
+</html>

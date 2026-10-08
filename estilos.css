@@ -1,0 +1,315 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: #02030a;
+  color: #fff;
+}
+
+/* Contenedor Principal del Universo */
+.universo {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #172554 0%, #050816 55%, #02030a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 0;
+}
+
+/* Encabezado */
+.titulo {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+  animation: aparecer 1.5s ease;
+}
+
+.titulo h1 {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.titulo p {
+  color: #a5b4fc;
+  font-size: 18px;
+}
+
+/* Estrellas */
+.estrella {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: parpadear 2s infinite alternate;
+}
+
+.e1 { top: 15%; left: 10%; }
+.e2 { top: 30%; left: 25%; animation-delay: 0.5s; }
+.e3 { top: 20%; right: 15%; animation-delay: 1s; }
+.e4 { top: 70%; left: 12%; animation-delay: 0.8s; }
+.e5 { top: 80%; right: 20%; animation-delay: 1.5s; }
+.e6 { top: 45%; right: 8%; animation-delay: 0.3s; }
+.e7 { top: 65%; left: 40%; animation-delay: 1.2s; }
+.e8 { top: 12%; left: 55%; animation-delay: 0.7s; }
+
+/* Planeta Tierra (Vista de Inicio) */
+.planeta {
+  width: 260px;
+  height: 260px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #60a5fa, #2563eb 45%, #172554);
+  box-shadow: 0 0 40px #2563eb, 0 0 100px #1d4ed8, inset -30px -20px 40px #020617;
+  animation: flotar 4s ease-in-out infinite;
+  transition: transform 0.4s ease-in-out; /* Transición suave para el zoom */
+}
+
+/* Efecto hover para el planeta principal */
+.planeta:hover {
+  transform: translate(-50%, -50%) scale(1.15); /* Mantiene centrado el translate y agranda un 15% */
+}
+
+.continente {
+  position: absolute;
+  background: #22c55e;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.c1 { width: 70px; height: 35px; top: 60px; left: 45px; transform: rotate(25deg); }
+.c2 { width: 90px; height: 40px; top: 130px; right: 30px; transform: rotate(-20deg); }
+.c3 { width: 50px; height: 70px; bottom: 30px; left: 80px; transform: rotate(30deg); }
+
+/* Órbita y Luna */
+.orbita {
+  width: 430px;
+  height: 430px;
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: girar 10s linear infinite;
+}
+
+.luna {
+  width: 55px;
+  height: 55px;
+  background: #e5e7eb;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px white;
+}
+
+/* Naves y Cometas */
+.nave {
+  position: absolute;
+  font-size: 45px;
+}
+
+.nave1 { left: -100px; top: 65%; animation: nave1 8s linear infinite; }
+.nave2 { right: -100px; top: 30%; animation: nave2 10s linear infinite; }
+
+.cometa {
+  position: absolute;
+  top: 20%;
+  left: -150px;
+  font-size: 40px;
+  animation: cometa 6s linear infinite;
+}
+
+/* Botón Principal */
+.boton {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
+  border: 1px solid #6366f1;
+  border-radius: 30px;
+  color: white;
+  text-decoration: none;
+  background: #111827dd;
+  transition: 0.3s;
+  z-index: 10;
+}
+
+.boton:hover {
+  background: #4f46e5;
+  box-shadow: 0 0 25px #6366f1;
+  transform: translateX(-50%) scale(1.06);
+}
+
+/* Contenedor Visual (Para vistas detalladas de planetas) */
+.visual {
+  width: 330px;
+  height: 330px;
+  margin: auto;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: inset -45px -35px 55px rgba(0, 0, 0, 0.6), 0 0 55px rgba(255, 255, 255, 0.1);
+  animation: flotarSuave 4s ease-in-out infinite;
+  transition: transform 0.4s ease-in-out;
+}
+
+.visual:hover {
+  transform: scale(1.1); /* Efecto zoom en vistas detalladas */
+}
+
+/* Keyframes de Animaciones */
+@keyframes aparecer {
+  from { opacity: 0; transform: translate(-50%, -30px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes flotar {
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: -15px; }
+}
+
+@keyframes flotarSuave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes girar {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes parpadear {
+  from { opacity: 0.2; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes nave1 {
+  0% { left: -100px; }
+  100% { left: 110%; }
+}
+
+@keyframes nave2 {
+  0% { right: -100px; }
+  100% { right: 110%; }
+}
+
+@keyframes cometa {
+  0% { left: -150px; top: 15%; }
+  100% { left: 110%; top: 55%; }
+}
+
+/* Responsivo */
+@media (max-width: 700px) {
+  .titulo h1 { font-size: 34px; }
+  .planeta { width: 190px; height: 190px; }
+  .orbita { width: 310px; height: 310px; }
+  .nave { font-size: 30px; }
+  .visual { width: 250px; height: 250px; }
+}
+
+/* --- ESTILOS DE LA CUADRÍCULA DE PLANETAS --- */
+.catalogo-planetas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 20px;
+  justify-items: center;
+  z-index: 5;
+}
+
+.tarjeta-planeta {
+  background: rgba(18, 18, 38, 0.8);
+  border: 1px solid rgba(120, 120, 200, 0.2);
+  border-radius: 16px;
+  padding: 25px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  width: 100%;
+  max-width: 260px;
+  box-sizing: border-box;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tarjeta-planeta:hover {
+  transform: translateY(-5px);
+  border-color: rgba(150, 150, 255, 0.6);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.tarjeta-planeta h3 {
+  margin: 15px 0 8px 0;
+  font-size: 1.4rem;
+  color: #ffffff;
+}
+
+.tarjeta-planeta p {
+  font-size: 0.85rem;
+  color: #a8a8c0;
+  margin: 0 0 15px 0;
+  line-height: 1.4;
+}
+
+.lunas-info {
+  font-size: 0.8rem;
+  color: #ffcc00;
+  margin-top: auto;
+}
+
+.planeta-miniatura {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.8), 0 0 15px rgba(255,255,255,0.1);
+  transition: transform 0.3s ease-in-out; /* Transición para las miniaturas del catálogo */
+}
+
+/* Efecto para que los planetas del catálogo también crezcan al pasar el cursor */
+.tarjeta-planeta:hover .planeta-miniatura {
+  transform: scale(1.15); 
+}
+
+.planeta-mercurio { background: radial-gradient(circle at 35% 35%, #d1d1d1, #525252); }
+.planeta-venus { background: radial-gradient(circle at 35% 35%, #ffe066, #cc7a00); }
+.planeta-tierra { background: radial-gradient(circle at 35% 35%, #4da6ff, #00264d); }
+.planeta-marte { background: radial-gradient(circle at 35% 35%, #ff6644, #661100); }
+.planeta-jupiter { background: radial-gradient(circle at 35% 35%, #ffcc99, #994d00); }
+.planeta-saturno { background: radial-gradient(circle at 35% 35%, #ffe680, #806000); }
+.planeta-urano { background: radial-gradient(circle at 35% 35%, #80ffff, #004d4d); }
+.planeta-neptuno { background: radial-gradient(circle at 35% 35%, #4d79ff, #00004d); }
+
+@media (max-width: 1024px) {
+  .catalogo-planetas { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .catalogo-planetas { grid-template-columns: 1fr; }
+}

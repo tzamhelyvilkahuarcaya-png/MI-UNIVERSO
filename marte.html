@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marte - Explora el Universo</title>
+  <link rel="stylesheet" href="planeta.css">
+  <style>
+    .visual {
+      position: relative;
+      width: 570px;
+      height: 570px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Contenedor principal del sistema de Marte con resplandor trasero fuerte */
+    .marte-sistema {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 440px;
+      height: 440px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+    }
+
+    /* Iluminación trasera intensa en tonos rojos y naranjas para Marte */
+    .marte-sistema::before {
+      content: '';
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(255, 90, 40, 0.7) 0%, rgba(204, 55, 13, 0.35) 45%, transparent 75%);
+      border-radius: 50%;
+      z-index: 1;
+      filter: blur(15px);
+      animation: pulso-brillo 4s ease-in-out infinite;
+    }
+
+    @keyframes pulso-brillo {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    /* Esfera de Marte */
+    .esfera-marte-container {
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      background: radial-gradient(circle at 40% 40%, #ff6b35 0%, #cc370d 60%, #801d02 100%);
+      box-shadow: 
+        inset -55px -55px 85px rgba(0, 0, 0, 0.7),
+        inset 25px 25px 40px rgba(255, 255, 255, 0.4),
+        0 0 90px rgba(204, 55, 13, 0.8);
+    }
+
+    .brillo-esfera {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.08) 55%, transparent 75%);
+      z-index: 6;
+    }
+
+    /* --- SISTEMA DINÁMICO DE LUNAS (Estilo অন্যান্য planetas) --- */
+    
+    .campo-lunas-marte {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      pointer-events: none; /* Permite hacer hover a través de él si es necesario */
+      z-index: 10;
+    }
+
+    /* Contenedor individual de cada luna (para posicionar en órbita) */
+    .luna-orbital-item {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      /* Puntero activo para la interactividad */
+      pointer-events: auto; 
+      transform: translate(-50%, -50%);
+      /* Transición suave para el efecto hover */
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0.2s;
+    }
+
+    /* Luz trasera sutil para las lunas (para que resalten) */
+    .luna-orbital-item::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, rgba(255, 100, 50, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0; /* Oculta por defecto */
+      transition: opacity 0.3s;
+    }
+
+    /* --- ESTILO HOVER: Efecto de acercamiento (Zoom) --- */
+    
+    /* Al pasar el ratón, la luna escala su tamaño x4 */
+    .luna-orbital-item:hover {
+      transform: translate(-50%, -50%) scale(4);
+      z-index: 100; /* Asegura que esté por encima de todo */
+    }
+
+    /* Muestra la luz trasera al hacer hover */
+    .luna-orbital-item:hover::before {
+      opacity: 1;
+    }
+
+    /* Gráfico circular de la luna (Textura rocosa) */
+    .luna-grafico {
+      width: 10px; /* Tamaño base pequeño */
+      height: 10px;
+      background: radial-gradient(circle at 35% 35%, #e0e0e0 0%, #9e9e9e 60%, #616161 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 4px rgba(200, 200, 200, 0.5), inset -2px -2px 3px rgba(0,0,0,0.7);
+      position: relative;
+      flex-shrink: 0;
+      z-index: 2;
+      transition: box-shadow 0.2s;
+    }
+
+    /* Textura de cráteres (se mantiene al hacer zoom gracias a SVG o gradientes) */
+    .luna-grafico::before, .luna-grafico::after {
+      content: '';
+      position: absolute;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 50%;
+    }
+    .luna-grafico::before { top: 2px; left: 2px; width: 3px; height: 2px; }
+    .luna-grafico::after { bottom: 2px; right: 2px; width: 4px; height: 3px; }
+
+    /* Nombre de la luna (Oculto por defecto, visible al hacer hover) */
+    .luna-orbital-item span {
+      position: absolute;
+      top: 100%; /* Justo debajo del gráfico */
+      margin-top: 3px;
+      font-size: 5px; /* Muy pequeño por defecto */
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1px 3px;
+      border-radius: 3px;
+      pointer-events: none;
+      opacity: 0; /* Invisible inicialmente */
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+      /* Pequeño desplazamiento inicial hacia arriba */
+      transform: translateY(-5px); 
+    }
+
+    /* --- ESTILO HOVER: Aparición de la etiqueta --- */
+    .luna-orbital-item:hover span {
+      opacity: 1;
+      transform: translateY(0); /* Vuelve a su posición */
+      font-weight: bold;
+      text-shadow: 0 0 2px rgba(255, 100, 50, 0.8);
+    }
+
+  </style>
+</head>
+<body>
+
+  <main class="universo">
+    <!-- Encabezado centrado -->
+    <header class="header-centrado">
+      <h1>Marte</h1>
+      <p class="subtitulo">El planeta rojo, lleno de misterios.</p>
+    </header>
+
+    <!-- Sección principal -->
+    <div class="contenedor-cuerpo">
+      
+      <div class="visual">
+        <!-- Sistema de Marte (Planeta) -->
+        <div class="marte-sistema">
+          <div class="esfera-marte-container">
+            <div class="brillo-esfera"></div>
+          </div>
+        </div>
+
+        <!-- Contenedor dinámico para las lunas orbitales (Fobos y Deimos) -->
+        <div class="campo-lunas-marte" id="campo-lunas-marte">
+          <!-- Las lunas se generarán aquí mediante JavaScript -->
+        </div>
+      </div>
+
+      <!-- Descripción y datos de Marte -->
+      <div class="contenido-derecha">
+        <h2>¿Qué debes saber sobre Marte?</h2>
+        <p class="texto-descripcion">
+          Marte es el cuarto planeta desde el Sol y el segundo más pequeño del sistema solar. Es conocido como el planeta rojo debido al óxido de hierro predominante en su superficie.
+        </p>
+
+        <div class="datos-clave">
+          <div class="dato">
+            <span>Temperatura</span>
+            <strong>-60 °C (Promedio)</strong>
+          </div>
+          <div class="dato">
+            <span>Un año aquí</span>
+            <strong>687 días terrestres</strong>
+          </div>
+          <div class="dato">
+            <span>Un día aquí</span>
+            <strong>24.6 horas</strong>
+          </div>
+          <div class="dato">
+            <span>Satélites</span>
+            <strong>Fobos y Deimos</strong>
+          </div>
+          <div class="dato">
+            <span>Gravedad</span>
+            <strong>3.72 m/s²</strong>
+          </div>
+          <div class="dato">
+            <span>Tipo de planeta</span>
+            <strong>Planeta rocoso</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón inferior -->
+    <a class="boton-volver" href="planetas.html">← Volver a planetas</a>
+  </main>
+
+  <!-- Script para posicionar las lunas dinámicamente en órbita -->
+  <script>
+    const lunasMarte = [
+      { nombre: "Fobos", distancia: 250, anguloInicial: -45 }, // Más cerca, arriba a la derecha
+      { nombre: "Deimos", distancia: 350, anguloInicial: 135 }  // Más lejos, abajo a la izquierda
+    ];
+
+    const contenedorLunas = document.getElementById('campo-lunas-marte');
+
+    lunasMarte.forEach(luna => {
+      const item = document.createElement('div');
+      item.className = 'luna-orbital-item';
+
+      // Convertir grados a radianes
+      const radianes = (luna.anguloInicial * Math.PI) / 180;
+
+      // Calcular posición X e Y basada en el radio (distancia)
+      const x = luna.distancia * Math.cos(radianes);
+      const y = luna.distancia * Math.sin(radianes);
+
+      // Aplicar posición
+      item.style.left = `${x}px`;
+      item.style.top = `${y}px`;
+
+      // Estructura interna de la luna
+      item.innerHTML = `
+        <div class="luna-grafico"></div>
+        <span>${luna.nombre}</span>
+      `;
+
+      contenedorLunas.appendChild(item);
+    });
+  </script>
+
+</body>
+</html>
